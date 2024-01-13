@@ -17,7 +17,8 @@ class PresensiController extends Controller
         $hariIni = date("Y-m-d");
         $nrp = Auth::guard('tni_al')->user()->nrp;
         $cek = DB::table('presensi')->where('tgl_presensi', $hariIni)->where('nrp', $nrp)->count();
-        $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
+        $kode_kot = Auth::guard('tni_al')->user()->kode_kot;
+        $lok_kantor = DB::table('kotama')->where('kode_kot', $kode_kot)->first();
 
         return view('presensi.create', compact('cek', 'lok_kantor'));
     }
@@ -26,10 +27,11 @@ class PresensiController extends Controller
     {
 
         $nrp = Auth::guard('tni_al')->user()->nrp;
+        $kode_kot = Auth::guard('tni_al')->user()->kode_kot;
         $tgl_presensi = date("Y-m-d");
         $jam = date("H:i:s");
-        $lok_kantor = DB::table('konfigurasi_lokasi')->where('id', 1)->first();
-        $lok = explode(',', $lok_kantor->lokasi_kantor);
+        $lok_kantor = DB::table('kotama')->where('kode_kot', $kode_kot)->first();
+        $lok = explode(',', $lok_kantor->lokasi_kot);
         $lat_kantor = $lok[0];
         $long_kantor = $lok[1];
         $latKantor = $lat_kantor;

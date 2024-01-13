@@ -63,11 +63,11 @@
     </audio>
 
     <audio id="notifikasi_out">
-        <source src="{{asset('assets/notifikasi/out (1).mp3')}}" type="audio/mpeg">
+        <source src="{{ asset('assets/notifikasi/out (1).mp3') }}" type="audio/mpeg">
     </audio>
 
     <audio id="radius_sound">
-        <source src="{{asset('assets/notifikasi/diluar radius.mp3')}}" type="audio/mpeg">
+        <source src="{{ asset('assets/notifikasi/diluar radius.mp3') }}" type="audio/mpeg">
     </audio>
 @endsection
 
@@ -95,18 +95,17 @@
         function successCallback(position) {
             lokasi.value = position.coords.latitude + "," + position.coords.longitude;
             var map = L.map('map').setView([position.coords.latitude, position.coords.longitude], 20);
-            var lokasi_kantor = "{{$lok_kantor->lokasi_kantor}}";
+            var lokasi_kantor = "{{ $lok_kantor->lokasi_kot }}";
             var lok = lokasi_kantor.split(",");
             var lat_kantor = lok[0];
-            var long_kantor = lok[1]; 
-            var radius = "{{$lok_kantor->radius}}"
-
-            L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-                maxZoom: 19,
-                attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+            var long_kantor = lok[1];
+            var radius = "{{ $lok_kantor->radius }}"
+            L.tileLayer('http://{s}.google.com/vt/lyrs=m&x={x}&y={y}&z={z}', {
+                maxZoom: 20,
+                subdomains: ['mt0', 'mt1', 'mt2', 'mt3']
             }).addTo(map);
             var marker = L.marker([position.coords.latitude, position.coords.longitude]).addTo(map);
-            var circle = L.circle([lat_kantor, long_kantor], { 
+            var circle = L.circle([lat_kantor, long_kantor], {
                 color: 'red',
                 fillColor: '#f03',
                 fillOpacity: 0.5,
@@ -135,9 +134,9 @@
                 success: function(respond) {
                     var status = respond.split("|");
                     if (status[0] == "success") {
-                        if(status[2] == "in"){
+                        if (status[2] == "in") {
                             notifikasi_in.play();
-                        }else{
+                        } else {
                             notifikasi_out.play();
                         }
                         Swal.fire({
@@ -147,7 +146,7 @@
                         })
                         setTimeout("location.href='/dashboard'", 3000);
                     } else {
-                        if(status[2]=="radius"){
+                        if (status[2] == "radius") {
                             radius_sound.play();
                         }
                         Swal.fire({

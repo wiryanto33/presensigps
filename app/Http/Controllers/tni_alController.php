@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\tni_al;
 use Exception;
+use GuzzleHttp\Psr7\Message;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
@@ -87,7 +88,10 @@ class tni_alController extends Controller
                 return Redirect::back()->with(['success' => 'DATA BERHASIL DISIMPAN']);
             }
         } catch (\Exception $e) {
-            return Redirect::back()->with(['warning' => 'DATA gagal DISIMPAN']);
+            if($e->getCode()==23000){
+                $message = ' DATA SUDAH ADA';
+            }
+            return Redirect::back()->with(['warning' => 'DATA GAGAL DISIMPAN' . $message]);
         }
     }
 

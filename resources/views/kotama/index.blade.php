@@ -58,7 +58,7 @@
 
                                             <div class="col-10">
                                                 <div class="form-group">
-                                                    <input type="text" class="form-control" id= "nama_kot"
+                                                    <input type="text" class="form-control" id= ""
                                                         name="nama_kot" placeholder="Kotama"
                                                         value="{{ Request('nama_kot') }}">
                                                 </div>
@@ -91,8 +91,10 @@
                                         <thead>
                                             <tr>
                                                 <th>NO</th>
-                                                <th>Kode Kotama</th>
-                                                <th>NAMA Kotama</th>
+                                                <th>KODE KOTAMA</th>
+                                                <th>NAMA KOTAMA</th>
+                                                <th>LOKASI</th>
+                                                <th>RADIUS</th>
                                                 <th>AKSI</th>
                                             </tr>
                                         </thead>
@@ -102,7 +104,10 @@
                                                     <td>{{ $loop->iteration }} </td>
                                                     <td>{{ $d->kode_kot }} </td>
                                                     <td>{{ $d->nama_kot }} </td>
+                                                    <td>{{$d->lokasi_kot}}</td>
+                                                    <td>{{$d->radius}}</td>
                                                     <td>
+                                                        {{-- edit --}}
                                                         <div class="btn-group">
                                                             <a href="#" class="edit btn btn-primary"
                                                                 kode_kot = "{{ $d->kode_kot }}">
@@ -172,6 +177,7 @@
                     <form action="/kotama/store" method="POST" id="frmKotama">
                         @csrf
 
+                        {{-- tambah kode kotama --}}
                         <div class="col-12">
                             <div class="input-icon mb-3">
                                 <span class="input-icon-addon">
@@ -193,23 +199,71 @@
                             </div>
                         </div>
 
+                        {{-- tambah nama kotama --}}
                         <div class="row">
                             <div class="col-12">
                                 <div class="input-icon mb-3">
                                     <span class="input-icon-addon">
                                         <!-- Download SVG icon from http://tabler-icons.io/i/user -->
-                                        <svg xmlns="http://www.w3.org/2000/svg" class="icon" width="24"
+                                        <svg xmlns="http://www.w3.org/2000/svg"
+                                            class="icon icon-tabler icon-tabler-building-skyscraper" width="24"
                                             height="24" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor"
                                             fill="none" stroke-linecap="round" stroke-linejoin="round">
-                                            <path stroke="none" d="M0 0h24v24H0z" fill="none"></path>
-                                            <path d="M8 7a4 4 0 1 0 8 0a4 4 0 0 0 -8 0"></path>
-                                            <path d="M6 21v-2a4 4 0 0 1 4 -4h4a4 4 0 0 1 4 4v2"></path>
+                                            <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                            <path d="M3 21l18 0" />
+                                            <path d="M5 21v-14l8 -4v18" />
+                                            <path d="M19 21v-10l-6 -4" />
+                                            <path d="M9 9l0 .01" />
+                                            <path d="M9 12l0 .01" />
+                                            <path d="M9 15l0 .01" />
+                                            <path d="M9 18l0 .01" />
                                         </svg>
                                     </span>
                                     <input type="text" id="nama_kot" name="nama_kot" value=""
                                         class="form-control" placeholder="Nama Kotama">
                                 </div>
                             </div>
+                            
+                            {{-- tambah lokasi kotama --}}
+                                <div class="col-12">
+                                    <div class="input-icon mb-3">
+                                        <span class="input-icon-addon">
+                                            <svg xmlns="http://www.w3.org/2000/svg"
+                                                class="icon icon-tabler icon-tabler-map-pin" width="24"
+                                                height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                stroke="currentColor" fill="none" stroke-linecap="round"
+                                                stroke-linejoin="round">
+                                                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                <path d="M9 11a3 3 0 1 0 6 0a3 3 0 0 0 -6 0" />
+                                                <path
+                                                    d="M17.657 16.657l-4.243 4.243a2 2 0 0 1 -2.827 0l-4.244 -4.243a8 8 0 1 1 11.314 0z" />
+                                            </svg>
+                                        </span>
+                                        <input type="text" id="lokasi_kot" name="lokasi_kot" value=""
+                                            class="form-control" placeholder="LOKASI">
+                                    </div>
+                                </div>
+
+                                {{-- tambah radius kotama --}}
+                                    <div class="col-12">
+                                        <div class="input-icon mb-3">
+                                            <span class="input-icon-addon">
+                                                <svg xmlns="http://www.w3.org/2000/svg"
+                                                    class="icon icon-tabler icon-tabler-radar-2" width="24"
+                                                    height="24" viewBox="0 0 24 24" stroke-width="2"
+                                                    stroke="currentColor" fill="none" stroke-linecap="round"
+                                                    stroke-linejoin="round">
+                                                    <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                                                    <path d="M12 12m-1 0a1 1 0 1 0 2 0a1 1 0 1 0 -2 0" />
+                                                    <path d="M15.51 15.56a5 5 0 1 0 -3.51 1.44" />
+                                                    <path d="M18.832 17.86a9 9 0 1 0 -6.832 3.14" />
+                                                    <path d="M12 12v9" />
+                                                </svg>
+                                            </span>
+                                            <input type="text" id="radius" name="radius" value=""
+                                                class="form-control" placeholder="RADIUS">
+                                        </div>
+                                    </div>
 
                             <div class="row mt-2">
                                 <div class="col-12">
@@ -299,95 +353,51 @@
                 })
             });
 
-            $("#frmtni_al").submit(function() {
-                var nrp = $("frmtni_al").find("#nrp").val();
-                var nama_lengkap = $("#nama_lengkap").val();
-                var pangkat = $("#pangkat").val();
-                var jabatan = $("#jabatan").val();
-                var no_hp = $("#no_hp").val();
-                var kode_dept = $("#kode_dept").val();
-                var kode_roll = $("#kode_roll").val();
-                var kode_kot = $("frmtni_al").find("#kode_kot").val();
+            $("#frmKotama").submit(function() {
+                var kode_kot = $("#kode_kot").val();
+                var nama_kot = $("#nama_kot").val();
+                var lokasi_kot = $("#lokasi_kot").val();
+                var radius = $("#radius").val();
 
-                if (nrp == "") {
+                if (kode_kot == "") {
                     Swal.fire({
                         title: 'Oops!',
-                        text: 'NRP Harus Diisi',
+                        text: 'Kode Kotama Harus Di isi',
                         icon: 'warning',
-                        confirmButtonText: 'Cool'
-                    }).then((result) => {
-                        $("#nrp").focus();
-                    })
-                    return false;
-                } else if (nama_lengkap == "") {
-                    Swal.fire({
-                        title: 'Oops!',
-                        text: 'Nama Harus Diisi',
-                        icon: 'warning',
-                        confirmButtonText: 'Cool'
-                    }).then((result) => {
-                        $("#nama_lengkap").focus();
-                    })
-                    return false;
-                } else if (pangkat == "") {
-                    Swal.fire({
-                        title: 'Oops!',
-                        text: 'pangkat Harus Diisi',
-                        icon: 'warning',
-                        confirmButtonText: 'Cool'
-                    }).then((result) => {
-                        $("#pangkat").focus();
-                    })
-                    return false;
-                } else if (jabatan == "") {
-                    Swal.fire({
-                        title: 'Oops!',
-                        text: 'Jabatan belum Diisi',
-                        icon: 'warning',
-                        confirmButtonText: 'Cool'
-                    }).then((result) => {
-                        $("#jabatan").focus();
-                    })
-                    return false;
-                } else if (no_hp == "") {
-                    Swal.fire({
-                        title: 'Oops!',
-                        text: 'Jabatan belum Diisi',
-                        icon: 'warning',
-                        confirmButtonText: 'Cool'
-                    }).then((result) => {
-                        $("#no_hp").focus();
-                    })
-                    return false;
-                } else if (kode_dep == "") {
-                    Swal.fire({
-                        title: 'Oops!',
-                        text: 'Departemen belum Diisi',
-                        icon: 'warning',
-                        confirmButtonText: 'Cool'
-                    }).then((result) => {
-                        $("#departemen").focus();
-                    })
-                    return false;
-                } else if (kode_kot == "") {
-                    Swal.fire({
-                        title: 'Oops!',
-                        text: 'kotama belum Dipilih',
-                        icon: 'warning',
-                        confirmButtonText: 'Cool'
+                        confirmButtonText: 'OK'
                     }).then((result) => {
                         $("#kode_kot").focus();
-                    })
+                    });
                     return false;
-                } else if (kode_roll == "") {
+                }else if(nama_kot == "") {
                     Swal.fire({
                         title: 'Oops!',
-                        text: 'Roll belum Dipilih',
+                        text: 'Nama Kotama Harus Di isi',
                         icon: 'warning',
-                        confirmButtonText: 'Cool'
+                        confirmButtonText: 'OK'
                     }).then((result) => {
-                        $("#kode_roll").focus();
-                    })
+                        $("#nama_kot").focus();
+                    });
+                    return false;
+                }else if(lokasi_kot == "") {
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: 'Lokasi Kotama Harus Di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        $("#lokasi_Kot").focus();
+                    });
+                    return false;
+                }else if(radius ==""){
+                    Swal.fire({
+                        title: 'Oops!',
+                        text: 'Radius Absen Harus Di isi',
+                        icon: 'warning',
+                        confirmButtonText: 'OK'
+                    }).then((result) => {
+                        $("#radius").focus();
+                    });
                     return false;
                 }
             })

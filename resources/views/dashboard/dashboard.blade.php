@@ -1,7 +1,29 @@
 @extends('layouts.presensi')
-
 @section('content')
+
+<style>
+    .logout{
+        position: absolute;
+        color: white;
+        right: 15px;
+        margin-top: 15px;
+    }
+    .logout:hover{
+        color: white;
+    }
+</style>
+
     <div class="section" id="user-section">
+        <a href="/proseslogout" class="logout">
+            <svg xmlns="http://www.w3.org/2000/svg" class="icon icon-tabler icon-tabler-logout" width="35" height="35"
+                viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" fill="none" stroke-linecap="round"
+                stroke-linejoin="round">
+                <path stroke="none" d="M0 0h24v24H0z" fill="none" />
+                <path d="M14 8v-2a2 2 0 0 0 -2 -2h-7a2 2 0 0 0 -2 2v12a2 2 0 0 0 2 2h7a2 2 0 0 0 2 -2v-2" />
+                <path d="M9 12h12l-3 -3" />
+                <path d="M18 15l3 -3" />
+            </svg>
+        </a>
         <div id="user-detail">
             <div class="avatar">
                 @if (!empty(Auth::guard('tni_al')->user()->foto))
@@ -16,6 +38,7 @@
             <div id="user-info">
                 <h2 id="user-name">{{ Auth::guard('tni_al')->user()->nama_lengkap }}</h2>
                 <span id="user-role">{{ Auth::guard('tni_al')->user()->jabatan }}</span>
+                <span id="user-role">({{ Auth::guard('tni_al')->user()->kode_kot }})</span>
             </div>
         </div>
     </div>
@@ -141,7 +164,7 @@
                         <div class="card-body text-center" style="padding: 5px 5px; !important line-height:0.8">
                             <span class="badge bg-danger"
                                 style="position: absolute; top:2px; right:5px; font-size:0.6rem;   
-                            z-index:999">{{$rekapIzin->jmlIzin != null? $rekapIzin->jmlIzin : 0}}
+                            z-index:999">{{ $rekapIzin->jmlIzin != null ? $rekapIzin->jmlIzin : 0 }}
                             </span>
                             <ion-icon name="newspaper" style="font-size: 1.6rem;" class="text-success mb-1"></ion-icon>
                             <br>
@@ -154,7 +177,7 @@
                         <div class="card-body text-center" style="padding: 5px 5px; !important line-height:0.8">
                             <span class="badge bg-danger"
                                 style="position: absolute; top:2px; right:5px; font-size:0.6rem; z-index:999">
-                                {{ $rekapIzin->jmlSakit != null? $rekapIzin->jmlSakit :0 }}</span>
+                                {{ $rekapIzin->jmlSakit != null ? $rekapIzin->jmlSakit : 0 }}</span>
                             <ion-icon name="medkit" style="font-size: 1.6rem;" class="text-danger mb-1"></ion-icon>
                             <br>
                             <span style="font-weight: 500;">Sakit </span>
@@ -166,7 +189,7 @@
                         <div class="card-body text-center" style="padding: 5px 5px; !important line-height:0.8">
                             <span class="badge bg-danger"
                                 style="position: absolute; top:2px; right:5px; font-size:0.6rem; z-index:999">
-                                {{ $rekapPresensi->jumlahTerlambat !=null? $rekapPresensi->jumlahTerlambat :0 }}</span>
+                                {{ $rekapPresensi->jumlahTerlambat != null ? $rekapPresensi->jumlahTerlambat : 0 }}</span>
 
                             <ion-icon name="alarm" style="font-size: 1.6rem;" class="text-warning mb-1"></ion-icon>
                             <br>

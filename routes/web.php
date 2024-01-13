@@ -78,7 +78,7 @@ Route::middleware(['auth:user'])->group(function(){
     Route::get('/kotama', [KotamaController::class, 'index']);
     Route::post('/kotama/store', [KotamaController::class, 'store']);
     Route::post('/kotama/edit', [KotamaController::class, 'edit']);
-    Route::post('/kotama/{kode_kot}/update', [KotamaController::class, 'update']);
+    Route::post('/kotama/update', [KotamaController::class, 'update']);
     Route::post('/kotama/{kode_kot}/delete', [KotamaController::class, 'delete']);
 
     //Roll
@@ -112,4 +112,12 @@ Route::middleware(['auth:user'])->group(function(){
     //konfigurasi
     Route::get('/konfigurasi/lokasikantor', [KonfigurasiController::class, 'lokasikantor']);
     Route::post('/konfigurasi/updatelokasikantor', [KonfigurasiController::class, 'updatelokasikantor']);
+    Route::get('/konfigurasi/jamkerja', [KonfigurasiController::class, 'jamkerja']);
+    Route::post('/konfigurasi/storejamkerja', [KonfigurasiController::class, 'storejamkerja']);
+    Route::post('/konfigurasi/edit', [KonfigurasiController::class, 'edit']);
+    Route::post('/konfigurasi/updateJK', [KonfigurasiController::class, 'updateJK']);
+    Route::post('/konfigurasi/{kode_jam_kerja}/delete', [KonfigurasiController::class, 'deleteJK']);
+    Route::get('/konfigurasi/{nrp}/setjamkerja', [KonfigurasiController::class, 'setjamkerja']);
+
+    Route::post('/konfigurasi/storeSetJamKerja', [KonfigurasiController::class, 'storeSetJamKerja']);
 });

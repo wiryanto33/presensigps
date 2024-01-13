@@ -100,7 +100,7 @@
                     @foreach ($kotama as $d)
                         <option {{ $tni_al->kode_kot == $d->kode_kot ? 'selected' : '' }}
                             value="{{ $d->kode_kot }}">
-                            {{ $d->nama_kot }} </option>
+                            {{ strtoupper($d->nama_kot) }} </option>
                     @endforeach
                 </select>
             </div>

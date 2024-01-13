@@ -30,7 +30,11 @@ class RollController extends Controller
                 'kode_roll' => $kode_roll,
                 'nama_roll' => $nama_roll
             ];
-    
+            $cek = DB::table('roll')->where('kode_roll', $kode_roll)->count();
+            if($cek>0){
+                return Redirect::back()->with(['warning' => ' ERROR DATA DENGAN KODE ROLL '. $kode_roll.' SUDAH TERISI']);
+            }
+
             $simpan = DB::table('roll')->insert($data);
     
             if($simpan){
